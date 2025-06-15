@@ -43,41 +43,98 @@ export default function Page() {
       "You're breaking my heart ;(",
     ];
 
-    return phrases[Math.min(noCount, phrases.length - 1)];
-  };
+    return (
+  <div
+    className="App"
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      minHeight: "100vh",
+      padding: "20px",
+      textAlign: "center",
+      backgroundColor: "#ffe4e6",
+      overflow: "hidden",
+    }}
+  >
+    {!yes ? (
+      <>
+        <h1
+          style={{
+            fontSize: "2rem",
+            marginBottom: "1.5rem",
+          }}
+        >
+          Will you be my Valentine? 💖
+        </h1>
 
-  return (
-    <div className="centered-container">      
-      <div className="valentine-container">
-        {yesPressed ? (
-          <>
-            <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" />
-            <div className="text-container">i knewwww ittt, Yayyyyyy!!</div>
-          </>
-        ) : (
-          <>
-            <img
-              className="h-[200px]"
-              style={{ width: "400x", height: "240px" }}
-              src="https://gifdb.com/images/high/cute-love-bear-roses-ou7zho5oosxnpo6k.gif"
-            />
-            <h1 className="text-container">Will you be my Valentine?</h1>
-            <div>
-              <button
-                className={"yes-button"}
-                style={{ fontSize: yesButtonSize }}
-                onClick={() => setYesPressed(true)}
-              >
-                Yes
-              </button>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: window.innerWidth < 640 ? "column" : "row",
+            gap: "1rem",
+            justifyContent: "center",
+            alignItems: "center",
+            maxWidth: "90vw",
+          }}
+        >
+          <button
+            onClick={handleYesClick}
+            style={{
+              backgroundColor: "#22c55e",
+              color: "white",
+              padding: "10px 24px",
+              borderRadius: "8px",
+              fontSize: "1rem",
+              fontWeight: "bold",
+              whiteSpace: "nowrap",
+              maxWidth: "100%",
+            }}
+          >
+            Yes 💘
+          </button>
 
-              <button onClick={handleNoClick} className="no-button">
-                {noCount === 0 ? "No" : getNoButtonText()}
-              </button>
-            </div>
-          </>
-        )}
-      </div>
-    </div>
-  );
-}
+          <button
+            onClick={handleNoClick}
+            style={{
+              backgroundColor: "#ef4444",
+              color: "white",
+              padding: "10px 24px",
+              borderRadius: "8px",
+              fontSize: "1rem",
+              fontWeight: "bold",
+              whiteSpace: "nowrap",
+              maxWidth: "90vw",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {noText}
+          </button>
+        </div>
+      </>
+    ) : (
+      <>
+        <h1
+          style={{
+            fontSize: "2rem",
+            marginBottom: "1.5rem",
+          }}
+        >
+          Yay! I knew it 💕
+        </h1>
+        <img
+          src="/final.gif"
+          alt="Love"
+          style={{
+            width: "100%",
+            maxWidth: "300px",
+            borderRadius: "12px",
+            boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+          }}
+        />
+      </>
+    )}
+  </div>
+);
