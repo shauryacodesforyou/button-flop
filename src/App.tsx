@@ -2,13 +2,11 @@ import { useState } from "react";
 import "./App.css";
 
 export default function Page() {
-  // ── state ────────────────────────────────────────────────
   const [noCount, setNoCount] = useState(0);
   const [yesPressed, setYesPressed] = useState(false);
 
-  // ── text list ────────────────────────────────────────────
-  const phrases: string[] = [
-    "No",
+  const phrases = [
+    "No 🫥",
     "Are you sure? 🥲",
     "Really sure? 🫣",
     "Think again! 😙",
@@ -39,21 +37,11 @@ export default function Page() {
     "You're breaking my heart :( 😢",
   ];
 
-  // ── helpers ──────────────────────────────────────────────
   const handleYesClick = () => setYesPressed(true);
-  const handleNoClick  = () => setNoCount((c) => c + 1);
+  const handleNoClick = () => setNoCount((prev) => prev + 1);
+  const getNoText = () => phrases[Math.min(noCount, phrases.length - 1)];
+  const yesButtonSize = 16 + noCount * 2;
 
-  const getNoButtonText = () =>
-    phrases[Math.min(noCount, phrases.length - 1)];
-
-  // Button grows a bit each “No”
-  const yesButtonSize = 16 + noCount * 2; // px
-
-  // Layout shifts to column under 640 px
-  const isMobile =
-    typeof window !== "undefined" && window.innerWidth < 640;
-
-  // ── render ───────────────────────────────────────────────
   return (
     <div
       className="App"
@@ -64,25 +52,59 @@ export default function Page() {
         justifyContent: "center",
         minHeight: "100vh",
         padding: "20px",
-        textAlign: "center",
         backgroundColor: "#ffe4e6",
+        textAlign: "center",
         overflow: "hidden",
       }}
     >
-      {!yesPressed ? (
+      {yesPressed ? (
+        <>
+          <h1 style={{ fontSize: "2rem", marginBottom: "1.5rem" }}>
+            Yay! I knew it 💕
+          </h1>
+          <img
+            src="/final.gif"
+            alt="Love"
+            style={{
+              width: "100%",
+              maxWidth: "300px",
+              borderRadius: "12px",
+              marginBottom: "1rem",
+            }}
+          />
+          <img
+            src="/bear.png"
+            alt="Bear"
+            style={{
+              width: "100%",
+              maxWidth: "200px",
+              marginBottom: "1rem",
+            }}
+          />
+          <img
+            src="/choco.png"
+            alt="Choco"
+            style={{
+              width: "100%",
+              maxWidth: "200px",
+              marginBottom: "1rem",
+            }}
+          />
+        </>
+      ) : (
         <>
           <h1 style={{ fontSize: "2rem", marginBottom: "1.5rem" }}>
             Will you be my Valentine? 💖
           </h1>
-
           <div
             style={{
               display: "flex",
-              flexDirection: isMobile ? "column" : "row",
+              flexDirection: window.innerWidth < 640 ? "column" : "row",
               gap: "1rem",
               justifyContent: "center",
               alignItems: "center",
               maxWidth: "90vw",
+              flexWrap: "wrap",
             }}
           >
             <button
@@ -99,7 +121,6 @@ export default function Page() {
             >
               Yes 💘
             </button>
-
             <button
               onClick={handleNoClick}
               style={{
@@ -115,27 +136,13 @@ export default function Page() {
                 textOverflow: "ellipsis",
               }}
             >
-              {getNoButtonText()}
+              {getNoText()}
             </button>
           </div>
         </>
-      ) : (
-        <>
-          <h1 style={{ fontSize: "2rem", marginBottom: "1.5rem" }}>
-            Yay! I knew it 💕
-          </h1>
-          <img
-            src="/final.gif"
-            alt="Love"
-            style={{
-              width: "100%",
-              maxWidth: "300px",
-              borderRadius: "12px",
-              boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
-            }}
-          />
-        </>
       )}
     </div>
+  );
+}
   );
 }
