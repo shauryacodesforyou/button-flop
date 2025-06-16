@@ -42,6 +42,9 @@ export default function Page() {
   const getNoText = () => phrases[Math.min(noCount, phrases.length - 1)];
   const yesButtonSize = 16 + noCount * 2;
 
+  const isMobile =
+    typeof window !== "undefined" && window.innerWidth < 640;
+
   return (
     <div
       className="App"
@@ -83,7 +86,7 @@ export default function Page() {
           />
           <img
             src="/choco.png"
-            alt="Choco"
+            alt="Chocolate"
             style={{
               width: "100%",
               maxWidth: "200px",
@@ -99,12 +102,11 @@ export default function Page() {
           <div
             style={{
               display: "flex",
-              flexDirection: window.innerWidth < 640 ? "column" : "row",
+              flexDirection: isMobile ? "column" : "row",
               gap: "1rem",
               justifyContent: "center",
               alignItems: "center",
               maxWidth: "90vw",
-              flexWrap: "wrap",
             }}
           >
             <button
@@ -142,7 +144,5 @@ export default function Page() {
         </>
       )}
     </div>
-  );
-}
   );
 }
